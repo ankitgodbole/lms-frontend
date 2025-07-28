@@ -1,4 +1,5 @@
 import lineClamp from "@tailwindcss/line-clamp";
+import daisyui from "daisyui";
 import { defineConfig } from "tailwindcss";
 
 export default defineConfig({
@@ -6,5 +7,5 @@ export default defineConfig({
   theme: {
     extend: {},
   },
-  plugins: [lineClamp],
+  plugins: [lineClamp, daisyui],
 });
