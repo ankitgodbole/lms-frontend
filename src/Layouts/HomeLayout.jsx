@@ -1,25 +1,51 @@
 import { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 import Footer from "../components/Footer";
 
 export default function HomeLayout({ children }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  //for checking user logged in
+  const isLoggedIn = useSelector((state) => {
+    state?.auth?.isLoggedIn;
+  });
+
+  //for displaying the options acc to role
+
+  const role = useSelector((state) => {
+    state?.auth?.role;
+  });
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDrawer = () => setIsOpen((prev) => !prev);
   const closeDrawer = () => setIsOpen(false);
 
+  //for logout functionality 
+
+  function handleLogout(e){
+    e.preventDefault();
+    // const res = await dispatch(logout());
+    // if(res?.payload?.succes)
+    navigate("/");
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-900">
       {/* ✅ Large Screen Top-Left Menu Icon (outside header) */}
-      {!isOpen && <button
-        className="hidden lg:block fixed top-4 left-4 z-50 bg-[#415a77] text-white p-2 rounded-full shadow"
-        onClick={toggleDrawer}
-      >
-        <FiMenu size={24} />
-      </button>}
+      {!isOpen && (
+        <button
+          className="hidden lg:block fixed top-4 left-4 z-50 bg-[#415a77] text-white p-2 rounded-full shadow"
+          onClick={toggleDrawer}
+        >
+          <FiMenu size={24} />
+        </button>
+      )}
 
       {/* ✅ Header (Only for Small Screens) */}
       <header className="w-full bg-[#415a77] text-white flex items-center justify-between p-4 lg:hidden">
@@ -50,17 +76,24 @@ export default function HomeLayout({ children }) {
           <ul className="space-y-4">
             <li>
               <Link to="/" onClick={closeDrawer}>
-                Dashboard
+                Home
               </Link>
             </li>
+            {isLoggedIn && role === "ADMIN" && (
+              <li>
+                <Link to="/admin/dashboard" onClick={closeDrawer}>
+                  Admin Dashboard
+                </Link>
+              </li>
+            )}
             <li>
               <Link to="/courses" onClick={closeDrawer}>
-                Courses
+                All Courses
               </Link>
             </li>
             <li>
-              <Link to="/students" onClick={closeDrawer}>
-                Students
+              <Link to="/contact-us" onClick={closeDrawer}>
+                Contact Us
               </Link>
             </li>
             <li>
@@ -68,6 +101,40 @@ export default function HomeLayout({ children }) {
                 Settings
               </Link>
             </li>
+
+            {!isLoggedIn && (
+              <li className="absolute bottom-4 w-[90%]">
+                <div className="w-full flex  items-center justify-center gap-4 mt-4">
+                  <Link to="/login">
+                    <button className="px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-md shadow-md transition-all duration-300">
+                      Login
+                    </button>
+                  </Link>
+                  <Link to="/signup">
+                    <button className="px-6 py-2 bg-white hover:bg-gray-100 text-black font-semibold border border-gray-300 rounded-md shadow-md transition-all duration-300">
+                      Sign Up
+                    </button>
+                  </Link>
+                </div>
+              </li>
+            )}
+
+            {isLoggedIn && (
+              <li className="absolute bottom-4 w-[90%]">
+                <div className="w-full flex  items-center justify-center gap-4 mt-4">
+                  <Link to="/user/profile">
+                    <button className="px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-md shadow-md transition-all duration-300">
+                      Profile
+                    </button>
+                  </Link>
+                  <Link onClick={handleLogout}  >
+                    <button className="px-6 py-2 bg-white hover:bg-gray-100 text-black font-semibold border border-gray-300 rounded-md shadow-md transition-all duration-300">
+                      Logout
+                    </button>
+                  </Link>
+                </div>
+              </li>
+            )}
           </ul>
         </aside>
 
