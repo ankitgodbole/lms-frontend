@@ -10,11 +10,11 @@ export default function HomePage() {
         <div className="flex flex-col lg:flex-row items-center justify-between w-full max-w-7xl gap-10">
           {/* Left Content */}
           <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-black">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-white">
               Find out the best
               <span className="text-yellow-400"> Online Courses</span>
             </h1>
-            <p className="   text-gray-500 text-lg sm:text-xl max-w-lg mx-auto lg:mx-0">
+            <p className="   text-gray-100 text-lg sm:text-xl max-w-lg mx-auto lg:mx-0">
               Learn from expert instructors and gain valuable skills. Start your
               journey now and boost your career with high-quality online
               content.

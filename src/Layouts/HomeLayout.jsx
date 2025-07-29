@@ -26,9 +26,9 @@ export default function HomeLayout({ children }) {
   const toggleDrawer = () => setIsOpen((prev) => !prev);
   const closeDrawer = () => setIsOpen(false);
 
-  //for logout functionality 
+  //for logout functionality
 
-  function handleLogout(e){
+  function handleLogout(e) {
     e.preventDefault();
     // const res = await dispatch(logout());
     // if(res?.payload?.succes)
@@ -36,7 +36,7 @@ export default function HomeLayout({ children }) {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-900">
+    <div className="flex flex-col  min-h-screen bg-gray-900">
       {/* ✅ Large Screen Top-Left Menu Icon (outside header) */}
       {!isOpen && (
         <button
@@ -48,7 +48,7 @@ export default function HomeLayout({ children }) {
       )}
 
       {/* ✅ Header (Only for Small Screens) */}
-      <header className="w-full bg-[#415a77] text-white flex items-center justify-between p-4 lg:hidden">
+      <header className="w-full bg-gray-800 text-white flex items-center justify-between p-4 lg:hidden">
         <h1 className="text-xl font-bold">Header</h1>
         {/* Menu icon on right side for mobile */}
         <button
@@ -60,51 +60,50 @@ export default function HomeLayout({ children }) {
       </header>
 
       {/* ✅ Main content area */}
-      <div className="flex flex-grow bg-[#415a77]">
+      <div className="flex flex-grow   bg-[#415a77]">
         {/* Sidebar Drawer */}
         <aside
-          className={`fixed top-0 left-0 h-full w-64 bg-[#415a7791] text-white font-bold p-4 z-50 transform transition-transform duration-300 ${
+          className={`fixed top-0 text-center   left-0 h-full w-64 bg-[#415a7791] text-black font-bold   p-4 z-50 transform transition-transform duration-300 ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
-          <div className="flex items-center  justify-between mb-6">
-            <h2 className="font-bold  text-lg">Menu</h2>
+          <div className="flex items-center  justify-end mb-6">
             <button onClick={closeDrawer}>
               <AiFillCloseCircle size={24} />
             </button>
           </div>
-          <ul className="space-y-4">
-            <li>
+          <ul className=" flex items-center  flex-col  space-y-1.5  ">
+            <li className=" w-full bg-gray-700 rounded-md text-white text-center hover:bg-amber-50 hover:text-black py-1">
               <Link to="/" onClick={closeDrawer}>
                 Home
               </Link>
             </li>
             {isLoggedIn && role === "ADMIN" && (
-              <li>
+              <li className=" w-full bg-gray-700 rounded-md text-white text-center hover:bg-amber-50 hover:text-black py-1">
                 <Link to="/admin/dashboard" onClick={closeDrawer}>
                   Admin Dashboard
                 </Link>
               </li>
             )}
-            <li>
+            <li className=" w-full bg-gray-700 rounded-md text-white text-center hover:bg-amber-50 hover:text-black py-1">
               <Link to="/courses" onClick={closeDrawer}>
                 All Courses
               </Link>
             </li>
-            <li>
+            <li className=" w-full bg-gray-700 rounded-md text-white text-center hover:bg-amber-50 hover:text-black py-1">
               <Link to="/contact-us" onClick={closeDrawer}>
                 Contact Us
               </Link>
             </li>
-            <li>
-              <Link to="/settings" onClick={closeDrawer}>
-                Settings
+            <li className=" w-full bg-gray-700 rounded-md text-white text-center hover:bg-amber-50 hover:text-black py-1">
+              <Link to="/about-us" onClick={closeDrawer}>
+                About Us
               </Link>
             </li>
 
             {!isLoggedIn && (
-              <li className="absolute bottom-4 w-[90%]">
-                <div className="w-full flex  items-center justify-center gap-4 mt-4">
+              <li className="absolute bottom-10 w-[90%]">
+                <div className="w-full flex lg:flex-row md:flex sm:flex-col  items-center justify-center gap-4 mt-4">
                   <Link to="/login">
                     <button className="px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-md shadow-md transition-all duration-300">
                       Login
@@ -127,7 +126,7 @@ export default function HomeLayout({ children }) {
                       Profile
                     </button>
                   </Link>
-                  <Link onClick={handleLogout}  >
+                  <Link onClick={handleLogout}>
                     <button className="px-6 py-2 bg-white hover:bg-gray-100 text-black font-semibold border border-gray-300 rounded-md shadow-md transition-all duration-300">
                       Logout
                     </button>
@@ -147,7 +146,9 @@ export default function HomeLayout({ children }) {
         )}
 
         {/* Main Content */}
-        <main className="flex-1 p-4 bg-gray-50 text-black z-0">{children}</main>
+        <main className="flex-1 p-4 bg-transparent text-black z-0">
+          {children}
+        </main>
       </div>
 
       {/* Footer */}

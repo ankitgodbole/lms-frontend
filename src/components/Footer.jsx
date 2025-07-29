@@ -5,11 +5,11 @@ function Footer() {
   const year = currentDate.getFullYear();
 
   return (
-    <footer className="bg-[#415a77] text-white w-full px-4 py-6 mt-auto">
+    <footer className=" bg-gray-800 text-white w-full px-4 py-6 mt-auto">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Left: Copyright */}
         <p className="text-sm md:text-base text-gray-300 text-center md:text-left">
-          © {year}  All rights reserved.
+          © {year} All rights reserved.
         </p>
 
         {/* Right: Social Links */}
