@@ -36,7 +36,7 @@ export default function HomeLayout({ children }) {
   }
 
   return (
-    <div className="flex flex-col  min-h-screen bg-gray-900">
+    <div className="flex flex-col   min-h-screen bg-gray-900">
       {/* ✅ Large Screen Top-Left Menu Icon (outside header) */}
       {!isOpen && (
         <button
@@ -146,7 +146,7 @@ export default function HomeLayout({ children }) {
         )}
 
         {/* Main Content */}
-        <main className="flex-1 p-4 bg-transparent text-black z-0">
+        <main className="flex-1 p-4 w-full bg-transparent  text-black z-0">
           {children}
         </main>
       </div>
