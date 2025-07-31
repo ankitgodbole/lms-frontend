@@ -4,21 +4,21 @@ import { FiMenu } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import Footer from "../components/Footer";
+import Footer from "../components/Footer.jsx";
 
 export default function HomeLayout({ children }) {
-  const dispatch = useDispatch();
+ 
   const navigate = useNavigate();
 
   //for checking user logged in
   const isLoggedIn = useSelector((state) => {
-    state?.auth?.isLoggedIn;
+     return state?.auth?.isLoggedIn;
   });
 
   //for displaying the options acc to role
 
   const role = useSelector((state) => {
-    state?.auth?.role;
+   return  state?.auth?.role;
   });
 
   const [isOpen, setIsOpen] = useState(false);

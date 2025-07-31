@@ -3,7 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { BsPersonCircle } from "react-icons/bs";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import HomeLayout from "../Layouts/HomeLayout";
 import { createAccount } from "../Redux/Slices/AuthSlice";
@@ -62,61 +62,51 @@ function SignupPage() {
     }
 
     // Email validation
-    const emailRegex = /^[a-zA-Z0-9](\.?[a-zA-Z0-9_-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/;
+    const emailRegex =
+      /^[a-zA-Z0-9](\.?[a-zA-Z0-9_-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/;
     if (!emailRegex.test(email)) {
       toast.error("Invalid email format");
       return;
     }
 
     // Password validation (min 6 chars, one number)
-    const passwordRegex = /^(?=.*[0-9])(?=.{6,})/;
-    if (!passwordRegex.test(password)) {
-              toast.error(
-                "Password must be at least 6 characters and contain a number"
-              );
-              return;
-            }
+    
 
     // If all is valid:
-            const formData = new FormData();
+    const formData = new FormData();
 
-            formData.append("fullName" , fullName);
-            formData.append("email", email);
-            formData.append("password", password);
-            formData.append("avatar", avatar);
+    formData.append("fullName", fullName);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("avatar", avatar);
 
-    
-    
+    // TODO: Dispatch signup action here
+    const response =   dispatch( createAccount(formData));
+    console.log(response);
+    //if succesfully created access to homepage
+    if (response?.payload?.success) {
+       toast.success("Authentication successll! 🎉");
+      navigate("/");
+    } else {
+      toast.error("Authentication failed");
+    }
 
-    // TODO: Dispatch signup action here  
-              const response = await dispatch(createAccount(formData));
-              console.log(response);
-            //if succesfully created access to homepage 
-           if (response?.payload?.success) {
-             navigate("/");
-           } else {
-             toast.error("Account creation failed");
-           }
+   
 
-
-
-            toast.success("Account created successfully! 🎉");
-
-              //reset signup data 
-              setSignupData({
-                  fullName : "",
-                  email : "",
-                  password : "",
-                  avatar:""
-              })
-              setPreviewImage("");
- 
+    //reset signup data
+    setSignupData({
+      fullName: "",
+      email: "",
+      password: "",
+      avatar: "",
+    });
+    setPreviewImage("");
   };
 
   return (
     <HomeLayout>
       <Toaster />
-      <div className="w-full md:w-fit lg:w-[30%] m-auto mt-6 rounded-xl bg-[#4d6074] px-4 py-6 shadow-md">
+      <div className="w-full md:w-fit lg:w-[30%] m-auto mt-6 rounded-xl bg-[#ffffff] px-4 py-6 shadow-md">
         <form
           onSubmit={createNewAccount}
           className="flex flex-col items-center gap-4"
@@ -214,6 +204,11 @@ function SignupPage() {
           >
             Create Account
           </button>
+          <p>Already have an accout ?   
+            <Link to="/login" className="hover:underline" >
+                {" "}login
+            </Link>
+            </p>
         </form>
       </div>
     </HomeLayout>
