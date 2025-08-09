@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
+import {   useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import Footer from "../components/Footer.jsx";
-
-export default function HomeLayout({ children }) {
+import { logout} from "../Redux/Slices/AuthSlice.js";
  
+export default function HomeLayout({ children }) {
+ const dispatch = useDispatch();
   const navigate = useNavigate();
 
   //for checking user logged in
@@ -28,12 +29,13 @@ export default function HomeLayout({ children }) {
 
   //for logout functionality
 
-  function handleLogout(e) {
-    e.preventDefault();
-    // const res = await dispatch(logout());
-    // if(res?.payload?.succes)
+const handleLogout = async (e) => {
+  e.preventDefault();
+  const res = await dispatch(logout());
+  if (res?.type === "auth/logout/fulfilled") {
     navigate("/");
   }
+};
 
   return (
     <div className="flex flex-col   min-h-screen bg-gray-900">
@@ -126,11 +128,14 @@ export default function HomeLayout({ children }) {
                       Profile
                     </button>
                   </Link>
-                  <Link onClick={handleLogout}>
-                    <button className="px-6 py-2 bg-white hover:bg-gray-100 text-black font-semibold border border-gray-300 rounded-md shadow-md transition-all duration-300">
+                  
+                    <button
+                      onClick={handleLogout}
+                      className="px-6 py-2 bg-white hover:bg-gray-100 text-black font-semibold border border-gray-300 rounded-md shadow-md transition-all duration-300"
+                    >
                       Logout
                     </button>
-                  </Link>
+                   
                 </div>
               </li>
             )}

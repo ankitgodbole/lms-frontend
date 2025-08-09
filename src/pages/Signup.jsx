@@ -5,6 +5,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
+import isEmail from "../Helpers/regexMatcher.js";
 import HomeLayout from "../Layouts/HomeLayout";
 import { createAccount } from "../Redux/Slices/AuthSlice";
 
@@ -61,16 +62,12 @@ function SignupPage() {
       return;
     }
 
-    // Email validation
-    const emailRegex =
-      /^[a-zA-Z0-9](\.?[a-zA-Z0-9_-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/;
-    if (!emailRegex.test(email)) {
+    if (!isEmail(email)) {
       toast.error("Invalid email format");
       return;
     }
 
     // Password validation (min 6 chars, one number)
-    
 
     // If all is valid:
     const formData = new FormData();
@@ -81,17 +78,15 @@ function SignupPage() {
     formData.append("avatar", avatar);
 
     // TODO: Dispatch signup action here
-    const response =   dispatch( createAccount(formData));
+    const response = dispatch(createAccount(formData));
     console.log(response);
     //if succesfully created access to homepage
     if (response?.payload?.success) {
-       toast.success("Authentication successll! 🎉");
+      toast.success("Authentication successll! 🎉");
       navigate("/");
     } else {
       toast.error("Authentication failed");
     }
-
-   
 
     //reset signup data
     setSignupData({
@@ -204,11 +199,13 @@ function SignupPage() {
           >
             Create Account
           </button>
-          <p>Already have an accout ?   
-            <Link to="/login" className="hover:underline" >
-                {" "}login
+          <p>
+            Already have an accout ?
+            <Link to="/login" className="hover:underline">
+              {" "}
+              login
             </Link>
-            </p>
+          </p>
         </form>
       </div>
     </HomeLayout>

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { BsPersonCircle } from "react-icons/bs";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
+import isEmail from "../Helpers/regexMatcher.js";
 import HomeLayout from "../Layouts/HomeLayout";
 import { login } from "../Redux/Slices/AuthSlice.js";
 
@@ -38,6 +38,11 @@ function LoginPage() {
       return;
     }
 
+    if (!isEmail(email)) {
+      toast.error("Please Enter a valid Email address");
+      return;
+    }
+
     // If all is valid:
     const loginData = {
       email: email,
@@ -46,13 +51,13 @@ function LoginPage() {
 
     // TODO: Dispatch Login action here
     const response = await dispatch(login(loginData));
-    console.log(response);
+
     //if succesfully created access to homepage
     if (response?.payload?.success) {
-      toast.success("Account created successfully! 🎉");
+      toast.success(" User Logged In successful ! 🎉");
       navigate("/");
     } else {
-      toast.error("Account creation failed");
+      toast.error("Login failed");
     }
 
     //reset Login data

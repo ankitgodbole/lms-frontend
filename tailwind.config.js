@@ -7,5 +7,7 @@ export default defineConfig({
   theme: {
     extend: {},
   },
+  darkMode: "class" ,
+  
   plugins: [lineClamp, daisyui],
 });

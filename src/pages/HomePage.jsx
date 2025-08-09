@@ -1,6 +1,7 @@
+ 
 import { Link } from "react-router-dom";
-
 import HomeLayout from "../Layouts/HomeLayout.jsx";
+
 
 export default function HomePage() {
   return (
@@ -25,7 +26,7 @@ export default function HomePage() {
                   Conctact Us
                 </button>
               </Link>
-              <Link to="/explore-courses" >
+              <Link to="/courses">
                 <button className="px-6 py-3 hover:bg-[#4d4d4d]  bg-gray-800 text-white font-semibold rounded-md shadow-md transition-all">
                   Explore Courses
                 </button>
