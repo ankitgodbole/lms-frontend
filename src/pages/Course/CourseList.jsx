@@ -13,7 +13,7 @@ function CourseList() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const { courseData } = useSelector((state) => state.course);
-   
+
   useEffect(() => {
     async function fetchCourses() {
       await dispatch(getAllCourses());

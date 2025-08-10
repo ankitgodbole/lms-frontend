@@ -1,7 +1,6 @@
- 
 import { Link } from "react-router-dom";
-import HomeLayout from "../Layouts/HomeLayout.jsx";
 
+import HomeLayout from "../Layouts/HomeLayout.jsx";
 
 export default function HomePage() {
   return (

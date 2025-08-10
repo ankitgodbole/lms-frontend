@@ -1,25 +1,25 @@
 import { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
-import {   useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import Footer from "../components/Footer.jsx";
-import { logout} from "../Redux/Slices/AuthSlice.js";
- 
+import { logout } from "../Redux/Slices/AuthSlice.js";
+
 export default function HomeLayout({ children }) {
- const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   //for checking user logged in
   const isLoggedIn = useSelector((state) => {
-     return state?.auth?.isLoggedIn;
+    return state?.auth?.isLoggedIn;
   });
 
   //for displaying the options acc to role
 
   const role = useSelector((state) => {
-   return  state?.auth?.role;
+    return state?.auth?.role;
   });
 
   const [isOpen, setIsOpen] = useState(false);
@@ -29,13 +29,13 @@ export default function HomeLayout({ children }) {
 
   //for logout functionality
 
-const handleLogout = async (e) => {
-  e.preventDefault();
-  const res = await dispatch(logout());
-  if (res?.type === "auth/logout/fulfilled") {
-    navigate("/");
-  }
-};
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    const res = await dispatch(logout());
+    if (res?.type === "auth/logout/fulfilled") {
+      navigate("/");
+    }
+  };
 
   return (
     <div className="flex flex-col   min-h-screen bg-gray-900">
@@ -87,6 +87,13 @@ const handleLogout = async (e) => {
                 </Link>
               </li>
             )}
+            {isLoggedIn && role === "ADMIN" && (
+              <li className=" w-full bg-gray-700 rounded-md text-white text-center hover:bg-amber-50 hover:text-black py-1">
+                <Link to="/course/create" onClick={closeDrawer}>
+                  Create New Course
+                </Link>
+              </li>
+            )}
             <li className=" w-full bg-gray-700 rounded-md text-white text-center hover:bg-amber-50 hover:text-black py-1">
               <Link to="/courses" onClick={closeDrawer}>
                 All Courses
@@ -128,14 +135,13 @@ const handleLogout = async (e) => {
                       Profile
                     </button>
                   </Link>
-                  
-                    <button
-                      onClick={handleLogout}
-                      className="px-6 py-2 bg-white hover:bg-gray-100 text-black font-semibold border border-gray-300 rounded-md shadow-md transition-all duration-300"
-                    >
-                      Logout
-                    </button>
-                   
+
+                  <button
+                    onClick={handleLogout}
+                    className="px-6 py-2 bg-white hover:bg-gray-100 text-black font-semibold border border-gray-300 rounded-md shadow-md transition-all duration-300"
+                  >
+                    Logout
+                  </button>
                 </div>
               </li>
             )}

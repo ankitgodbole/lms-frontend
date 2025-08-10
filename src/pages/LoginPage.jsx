@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import isEmail from "../Helpers/regexMatcher.js";
-import HomeLayout from "../Layouts/HomeLayout";
+import HomeLayout from "../Layouts/HomeLayout.jsx";
 import { login } from "../Redux/Slices/AuthSlice.js";
 
 function LoginPage() {

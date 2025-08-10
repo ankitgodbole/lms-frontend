@@ -8,11 +8,10 @@ function CourseDescription() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const store = useSelector((store) => store?.auth);
-   
-  const {data , role } = store;
 
-  console.log(data, role )
-  
+  const { data, role } = store;
+
+  console.log(data, role);
 
   // Destructure state safely
   const {
