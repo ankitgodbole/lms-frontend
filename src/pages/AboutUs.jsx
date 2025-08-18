@@ -7,7 +7,7 @@ import HomeLayout from "../Layouts/HomeLayout.jsx";
 function AboutUs() {
   return (
     <HomeLayout>
-      <div className="bg-base-100 text-base-content">
+      <div className="bg-base-100 p-7 text-base-content">
         {/* About Us – Hero Section */}
         <section className="bg-[#0d111772] text-white py-16 px-4 sm:px-8 md:px-16 lg:px-24 rounded-b-3xl shadow-xl">
           <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-10">

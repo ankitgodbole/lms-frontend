@@ -157,7 +157,7 @@ export default function HomeLayout({ children }) {
         )}
 
         {/* Main Content */}
-        <main className="flex-1 p-4 w-full bg-transparent  text-black z-0">
+        <main className="flex-1  w-full bg-transparent z-0">
           {children}
         </main>
       </div>

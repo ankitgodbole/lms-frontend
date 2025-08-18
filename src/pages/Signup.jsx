@@ -78,14 +78,16 @@ function SignupPage() {
     formData.append("avatar", avatar);
 
     // TODO: Dispatch signup action here
-    const response = dispatch(createAccount(formData));
-    console.log(response);
+    const response = await dispatch(createAccount(formData));
+    
     //if succesfully created access to homepage
+    
     if (response?.payload?.success) {
-      toast.success("Authentication successll! 🎉");
+      toast.success('authentication successful !')
       navigate("/");
-    } else {
-      toast.error("Authentication failed");
+}else{
+        toast.error("Failed to Create Account !")
+        
     }
 
     //reset signup data
