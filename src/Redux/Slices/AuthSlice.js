@@ -63,6 +63,55 @@ export const logout = createAsyncThunk("/auth/logout", async () => {
   }
 });
 
+//    for getUserData 
+export const getUserData = createAsyncThunk(
+  "/user/details",
+  async () => {
+    try {
+      const resPromise = axiosInstance.get("/user/me");
+
+      const res = await toast.promise(resPromise, {
+        loading: "Updating your profile...",
+        success: (res) => res?.data?.message,
+        error: (err) =>
+          err?.response?.data?.message || "Failed to get  profile details",
+      });
+
+      return await res.data; // { success, message, user }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong");
+      return toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
+
+//for updateprofile 
+export const updateProfile = createAsyncThunk(
+  "/user/update/profile",
+  async ( data) => {
+    try {
+      const resPromise = axiosInstance.put(`/user/update`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const res = await toast.promise(resPromise, {
+        loading: "Updating your profile...",
+        success: (res) => res?.data?.message,
+        error: (err) =>
+          err?.response?.data?.message || "Failed to update profile",
+      });
+
+      return await res.data; // { success, message, user }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong");
+      return  toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -95,7 +144,21 @@ const authSlice = createSlice({
         state.data = {};
         state.role = "";
         state.isLoggedIn = false;
-      });
+      })
+
+      //update profile
+     .addCase(getUserData.fulfilled , (state , action)=>{
+      localStorage.setItem("data", JSON.stringify(action?.payload?.user));
+      localStorage.setItem("isLoggedIn", true);
+      localStorage.setItem("role", action?.payload?.user?.role);
+
+      state.isLoggedIn = true;
+      state.data = action?.payload?.user;
+      state.role = action?.payload?.user?.role; 
+     })
+
+
+
   },
 });
 
