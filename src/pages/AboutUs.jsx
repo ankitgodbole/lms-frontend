@@ -14,7 +14,7 @@ function AboutUs() {
             {/* Text Content */}
             <div className="text-center md:text-left flex-1 space-y-6">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight">
-                About CrackCampus
+                About Coursify 
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-gray-200 font-medium max-w-xl mx-auto md:mx-0">
                 We are a passionate student-led initiative dedicated to

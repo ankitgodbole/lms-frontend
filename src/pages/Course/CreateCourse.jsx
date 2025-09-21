@@ -66,6 +66,7 @@ function CreateCourse() {
         previewImage: "",
       });
       navigate("/courses");
+      
     }
   };
 

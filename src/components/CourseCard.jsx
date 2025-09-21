@@ -11,7 +11,6 @@ function CourseCard({ course }) {
     title,
     _id,
   } = course;
-   
 
   return (
     <div
@@ -52,8 +51,8 @@ function CourseCard({ course }) {
           </Link>
 
           <span
-            className="bg-yellow-500 text-black font-semibold 
-            text-sm sm:text-base px-3 sm:px-4 py-1.5 sm:py-2 
+            className="bg-yellow-500 text-black font-semibold
+            text-sm sm:text-base px-3 sm:px-4 py-1.5 sm:py-2
             rounded transition w-full sm:w-auto text-center"
           >
             Total Lecture: {numberOfLectures}
@@ -65,4 +64,3 @@ function CourseCard({ course }) {
 }
 
 export default CourseCard;
- 

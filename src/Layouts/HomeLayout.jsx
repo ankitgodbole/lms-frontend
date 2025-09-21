@@ -13,6 +13,7 @@ export default function HomeLayout({ children }) {
 
   //for checking user logged in
   const isLoggedIn = useSelector((state) => {
+    
     return state?.auth?.isLoggedIn;
   });
 

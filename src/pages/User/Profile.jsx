@@ -1,15 +1,27 @@
-import { motion } from "framer-motion";
-import React from "react";
 import { MdArrowBack } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import HomeLayout from "../../Layouts/HomeLayout.jsx";
+import { getUserData } from "../../Redux/Slices/AuthSlice.js";
+import { cancelSubscription } from "../../Redux/Slices/RazorpaySlice.js";
+import { motion } from "framer-motion";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const userData = useSelector((state) => state?.auth?.data);
-console.log(userData);
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.auth.data);
+
+  const handleCancelSubscription = async () => {
+    try {
+      await dispatch(cancelSubscription()).unwrap();
+      await dispatch(getUserData()); // Refresh user data
+      navigate("/");
+    } catch (error) {
+      console.error("Cancel subscription error:", error);
+    }
+  };
+  console.log(userData);
   return (
     <HomeLayout>
       <div className="min-h-screen flex items-center justify-center px-4 relative">
@@ -90,15 +102,18 @@ console.log(userData);
               Change Password
             </Link>
           </div>
-          { userData?.subscription?.status === "active" &&( <div>
-             
-            <button
-              to="/user/editprofile"
-              className="flex-1 mt-3 w-full text-center bg-red-500 text-black py-2 rounded-lg font-semibold hover:bg-red-400 transition"
-            >
-              Cancel Subscription
-            </button>
-          </div>)}
+          {userData?.subscription?.status === "created" && (
+            <div>
+              <button
+                onClick={() => {
+                  handleCancelSubscription();
+                }}
+                className="flex-1 mt-3 w-full text-center bg-red-500 text-black py-2 rounded-lg font-semibold hover:bg-red-400 transition"
+              >
+                Cancel Subscription
+              </button>
+            </div>
+          )}
         </motion.div>
       </div>
     </HomeLayout>

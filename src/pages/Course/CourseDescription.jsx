@@ -8,13 +8,11 @@ function CourseDescription() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const store = useSelector((store) => store?.auth);
-
   const { data, role } = store;
-
-  console.log(data, role);
 
   // Destructure state safely
   const {
+    _id: courseId,
     title = "Untitled Course",
     category = "General",
     createdBy = "Unknown Instructor",
@@ -25,14 +23,13 @@ function CourseDescription() {
 
   useEffect(() => {
     if (!state) {
-      // Redirect if state is missing (e.g., user came directly)
       navigate("/courses");
     }
   }, [state, navigate]);
 
   return (
     <HomeLayout>
-      <div className="min-h-screen  text-white px-4 py-10">
+      <div className="min-h-screen text-white px-4 py-10">
         <div className="max-w-6xl mx-auto space-y-10">
           {/* Course Title Section */}
           <section className="text-center">
@@ -96,15 +93,21 @@ function CourseDescription() {
           </section>
 
           {/* Enroll Button */}
-          {role === "ADMIN" || data?.subscriptipn?.status === "ACTIVE" ? (
+          {role === "ADMIN" || data?.subscription?.status === "active" ? (
             <div className="flex justify-center">
-              <button className="bg-yellow-400 text-black font-semibold px-6 py-3 text-sm sm:text-base rounded-lg hover:bg-yellow-300 transition duration-200 shadow-md">
+              <button
+                onClick={() => navigate(`/courses/${courseId}/lectures`)}
+                className="bg-yellow-400 text-black font-semibold px-6 py-3 text-sm sm:text-base rounded-lg hover:bg-yellow-300 transition duration-200 shadow-md"
+              >
                 Watch Lectures
               </button>
             </div>
           ) : (
             <div className="flex justify-center">
-              <button className="bg-yellow-400 text-black font-semibold px-6 py-3 text-sm sm:text-base rounded-lg hover:bg-yellow-300 transition duration-200 shadow-md">
+              <button
+                onClick={() => navigate("/checkout")}
+                className="bg-yellow-400 text-black font-semibold px-6 py-3 text-sm sm:text-base rounded-lg hover:bg-yellow-300 transition duration-200 shadow-md"
+              >
                 Subscribe
               </button>
             </div>
