@@ -1,16 +1,16 @@
 // src/pages/AdminCourseLectures.jsx
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { FiTrash2, FiUpload } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
 import HomeLayout from "../../Layouts/HomeLayout.jsx";
 import {
-  getLectures,
-  
-  deleteLecture,
   addLecture,
-} from "../../Redux/Slices/lectureSlice";
-import { FiTrash2, FiUpload } from "react-icons/fi";
+  deleteLecture,
+  getLectures,
+} from "../../Redux/Slices/LectureSlice.js";
 
 const AdminCourseLectures = () => {
   const { courseId } = useParams();
