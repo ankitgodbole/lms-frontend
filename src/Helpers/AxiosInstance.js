@@ -1,17 +1,20 @@
+// src/api/axiosInstance.js
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const BASE_URL = "http://localhost:3003/api/v1";
+// ✅ Base URL from environment variables
+const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:3003";
 
 const axiosInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: `${BASE_URL}/api/v1`,
   withCredentials: true,
 });
 
 // ✅ Add token to every request
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token"); // or from Redux
+    const token = localStorage.getItem("token"); // or from Redux/Context
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

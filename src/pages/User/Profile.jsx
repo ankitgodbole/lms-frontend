@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { MdArrowBack } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -5,7 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import HomeLayout from "../../Layouts/HomeLayout.jsx";
 import { getUserData } from "../../Redux/Slices/AuthSlice.js";
 import { cancelSubscription } from "../../Redux/Slices/RazorpaySlice.js";
-import { motion } from "framer-motion";
 
 const Profile = () => {
   const navigate = useNavigate();
